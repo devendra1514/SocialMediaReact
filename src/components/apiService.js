@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/';
+const API_URL = 'https://close-guiding-mackerel.ngrok-free.app/';
 
 const handleResponse = (response) => {
   if (response.status === 400) {
@@ -30,7 +30,6 @@ const getToken = () => {
 
 const apiCall = async (endpoint, method = 'GET', data = null) => {
   const token = getToken();
-
   const options = {
     method,
     url: `${API_URL}${endpoint}`,
@@ -38,6 +37,7 @@ const apiCall = async (endpoint, method = 'GET', data = null) => {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'token': `${token}`,
+      'ngrok-skip-browser-warning': '1',
     },
     data,
   };

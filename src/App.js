@@ -4,6 +4,7 @@ import Signup from './components/Signup';
 import LoginWithOtp from './components/LoginWithOtp';
 import LoginWithPassword from './components/LoginWithPassword';
 import Dashboard from './components/Dashboard';
+import Profile from './components/Profile'
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
 import NotFound from './components/NotFound';
@@ -50,6 +51,14 @@ function App() {
           element={
             <PrivateRoute>
               <Dashboard />
+            </PrivateRoute>
+          }
+        />
+
+        <Route path="/profile"
+          element={
+            <PrivateRoute>
+              <Profile />
             </PrivateRoute>
           }
         />
