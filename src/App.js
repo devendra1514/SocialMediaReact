@@ -9,6 +9,7 @@ import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
 import NotFound from './components/NotFound';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import SocialNavBar from './components/SocialNavBar';
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
         <Route path="/dashboard"
           element={
             <PrivateRoute>
+              <SocialNavBar />
               <Dashboard />
             </PrivateRoute>
           }
@@ -50,6 +52,7 @@ function App() {
         <Route path="/"
           element={
             <PrivateRoute>
+              <SocialNavBar />
               <Dashboard />
             </PrivateRoute>
           }
@@ -58,6 +61,7 @@ function App() {
         <Route path="/profile"
           element={
             <PrivateRoute>
+              <SocialNavBar />
               <Profile />
             </PrivateRoute>
           }

@@ -21,20 +21,20 @@ const handleResponse = (response) => {
 
 const removeToken = () => {
   localStorage.removeItem('token');
-  window.location.href = '/login';  
+  window.location.href = '/login_with_password';  
 }
 
 const getToken = () => {
   return localStorage.getItem('token');
 };
 
-const apiCall = async (endpoint, method = 'GET', data = null) => {
+const apiCall = async (endpoint, method = 'GET', data = null, multipart = false) => {
   const token = getToken();
   const options = {
     method,
     url: `${API_URL}${endpoint}`,
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': multipart ? 'multipart/form-data' : 'application/json',
       'Accept': 'application/json',
       'token': `${token}`,
       'ngrok-skip-browser-warning': '1',

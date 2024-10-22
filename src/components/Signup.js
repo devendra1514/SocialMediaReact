@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import apiCall from './apiService';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap is imported
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Signup() {
   const [name, setName] = useState('');
@@ -9,22 +9,30 @@ function Signup() {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [avatar, setAvatar] = useState(null);
   const [errorMessages, setErrorMessages] = useState({});
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessages({});
+    setLoading(true)
 
-    const signupData = {
-      name,
-      username,
-      full_phone_number: phone,
-      password,
-      password_confirmation: confirmPassword,
-    };
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('username', username);
+    formData.append('full_phone_number', phone);
+    formData.append('password', password);
+    formData.append('password_confirmation', confirmPassword);
+    if (avatar) {
+      formData.append('avatar', avatar);
+    }
+    formData.forEach((value, key) => {
+      console.log(key, value);
+    });
 
-    const response = await apiCall('api/v1/users', 'POST', signupData);
+    const response = await apiCall('api/v1/users', 'POST', formData, true);
 
     if (response.status === 200) {
       alert('User created successfully! Please login.');
@@ -107,6 +115,15 @@ function Signup() {
                 {errorMessages.password_confirmation && (
                   <p className="text-danger">{errorMessages.password_confirmation[0]}</p>
                 )}
+              </div>
+              <div className="form-group mb-3">
+                <label htmlFor="avatar">Avatar:</label>
+                <input
+                  type="file"
+                  id="avatar"
+                  className="form-control"
+                  onChange={(e) => setAvatar(e.target.files[0])}
+                />
               </div>
               <button type="submit" className="btn btn-primary w-100">Sign Up</button>
             </form>
