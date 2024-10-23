@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/';
+const API_URL = 'https://close-guiding-mackerel.ngrok-free.app/';
 
 const handleResponse = (response) => {
   if (response.status === 400) {

@@ -52,8 +52,8 @@ const PostCard = ({ post }) => {
         <h6 className="card-title">{post.title}</h6>
 
         <div className="text-center my-3">
-          { post.thumb_url ? <img
-            src={post.thumb_url || post.media_url}
+          { post.media_url ? <img
+            src={post.media_url || post.media_url}
             alt={post.title}
             className="img-fluid rounded"
             style={{ maxWidth: '100%', height: '300px', objectFit: 'cover' }}
