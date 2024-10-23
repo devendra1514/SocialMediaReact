@@ -45,7 +45,7 @@ function LoginWithOtp() {
       const token = response.data.token;
       localStorage.setItem('token', token);
       alert('Login successful! Redirecting to dashboard.');
-      navigate('/dashboard');
+      navigate('/');
     } else {
       setErrorMessage(response.data.error);
     }

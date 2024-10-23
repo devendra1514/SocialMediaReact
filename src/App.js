@@ -10,6 +10,8 @@ import PublicRoute from './components/PublicRoute';
 import NotFound from './components/NotFound';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SocialNavBar from './components/SocialNavBar';
+import Posts from "./components/Posts";
+import Comments from "./components/Comments"
 
 function App() {
   return (
@@ -63,6 +65,24 @@ function App() {
             <PrivateRoute>
               <SocialNavBar />
               <Profile />
+            </PrivateRoute>
+          }
+        />
+
+        <Route path="/posts"
+          element={
+            <PrivateRoute>
+              <SocialNavBar />
+              <Posts />
+            </PrivateRoute>
+          }
+        />
+
+        <Route path="/comments/:resource_type/:resource_id"
+          element={
+            <PrivateRoute>
+              <SocialNavBar />
+              <Comments />
             </PrivateRoute>
           }
         />
