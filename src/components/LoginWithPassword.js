@@ -26,7 +26,7 @@ function Login() {
       const token = response.data.token;
       localStorage.setItem('token', token);
       alert('Login successful! Redirecting to dashboard.');
-      navigate('/dashboard');
+      navigate('/');
     } else if (response.status === 400) {
       setErrorMessage(response.data.error);
     }

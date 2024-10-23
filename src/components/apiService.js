@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://close-guiding-mackerel.ngrok-free.app/';
+const API_URL = 'http://localhost:3000/';
 
 const handleResponse = (response) => {
   if (response.status === 400) {
@@ -8,12 +8,15 @@ const handleResponse = (response) => {
       case 'Session expired':
         removeToken();
         alert('Session expired. Please log in again.');
+        break;
       case 'Account is deleted':
         removeToken();
         alert('Account is deleted. Please sign up.');
+        break;
       case 'Something went wrong':
-        removeToken()
-        alert('Something not good happend!');
+        removeToken();
+        alert('Something not good happened!');
+        break;
     }
   }
   return response;
@@ -42,16 +45,8 @@ const apiCall = async (endpoint, method = 'GET', data = null, multipart = false)
     data,
   };
 
-  try {
-    const response = await axios(options);
-    return handleResponse(response);
-  } catch (error) {
-    if (error.response) {
-      return handleResponse(error.response);
-    } else {
-      throw error;
-    }
-  }
+  const response = await axios(options);
+  return handleResponse(response);
 };
 
 export default apiCall;
