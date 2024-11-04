@@ -4,7 +4,7 @@ const API_URL = 'http://localhost:3000/';
 
 const handleResponse = (response) => {
   if (response.status === 400) {
-    switch(response.data.error) {
+    switch (response.data.error) {
       case 'Session expired':
         removeToken();
         alert('Session expired. Please log in again.');
@@ -24,8 +24,8 @@ const handleResponse = (response) => {
 
 const removeToken = () => {
   localStorage.removeItem('token');
-  window.location.href = '/login_with_password';  
-}
+  window.location.href = '/login_with_password';
+};
 
 const getToken = () => {
   return localStorage.getItem('token');
@@ -39,14 +39,27 @@ const apiCall = async (endpoint, method = 'GET', data = null, multipart = false)
     headers: {
       'Content-Type': multipart ? 'multipart/form-data' : 'application/json',
       'Accept': 'application/json',
-      'token': `${token}`,
       'ngrok-skip-browser-warning': '1',
     },
     data,
   };
 
-  const response = await axios(options);
-  return handleResponse(response);
+  if (token) {
+    options.headers['token'] = token;
+  }
+
+  try {
+    const response = await axios(options);
+    return handleResponse(response);
+  } catch (error) {
+    if (error.response) {
+      return handleResponse(error.response);
+    } else {
+      console.error('Error:', error.message);
+      alert('An unexpected error occurred.');
+      throw error;
+    }
+  }
 };
 
 export default apiCall;
