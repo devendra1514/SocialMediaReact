@@ -38,7 +38,7 @@ function Signup() {
       alert('User created successfully! Please login.');
       navigate('/login_with_password');
     } else if (response.status === 422) {
-      setErrorMessages(response.data.errors);
+      setErrorMessages(response.data.error);
     }
   };
 
