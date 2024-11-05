@@ -14,7 +14,7 @@ const SocialNavBar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light shadow-sm" style={{"background-color": "#e3f2fd"}} >
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark" >
       <div className="container-fluid">
       <Link className="navbar-brand fw-bold d-flex justify-content-center align-items-center" to="/">
         <i className="bi bi-tencent-qq" style={{ fontSize: '2rem' }}></i>
@@ -44,7 +44,7 @@ const SocialNavBar = () => {
           <ul className="navbar-nav ms-auto d-flex align-items-center">
             <li className="nav-item me-3">
               <Link className="nav-link" to="/profile">
-                <FaUserCircle size={28} className="text-black" />
+                <FaUserCircle size={28} className="text-white" />
               </Link>
             </li>
 

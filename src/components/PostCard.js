@@ -52,13 +52,27 @@ const PostCard = ({ post }) => {
         <h6 className="card-title">{post.title}</h6>
 
         <div className="text-center my-3">
-          { post.thumb_url ? <img
-            src={post.thumb_url || post.media_url}
-            alt={post.title}
-            className="img-fluid rounded"
-            style={{ maxWidth: '100%', height: '300px', objectFit: 'cover' }}
-          /> : '' }
+          {
+            post.media_url ? (
+              post.content_type.includes('video') ? (
+                <video
+                  src={post.media_url}
+                  controls
+                  className="img-fluid rounded"
+                  style={{maxWidth: '100%', height: '300px', objectFit: 'cover'}}
+                />
+              ) : (
+                <img
+                  src={post.media_url}
+                  alt={post.title}
+                  className="img-fluid rounded"
+                  style={{maxWidth: '100%', height: '300px', objectFit: 'cover'}}
+                />
+              )
+            ) : null
+          }
         </div>
+
 
         <div className="d-flex justify-content-start mt-3">
           <div className="d-flex align-items-center me-4">

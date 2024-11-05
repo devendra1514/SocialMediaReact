@@ -17,7 +17,6 @@ function App() {
   return (
     <Router>
       <Routes>
-        
         <Route path="/login_with_otp" 
           element={
             <PublicRoute>
