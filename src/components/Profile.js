@@ -1,15 +1,20 @@
+// Profile.js
 import React, { useEffect, useState } from 'react';
 import apiCall from './apiService';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Profile.css';
 import EditProfile from './EditProfile';
+import FollowersList from './FollowersList';
+import FollowingList from './FollowingList'
 
 const Profile = () => {
   const [profileData, setProfileData] = useState(null);
   const [userPosts, setUserPosts] = useState([]);
   const [editMode, setEditMode] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [followersListMode, setFollowersListMode] = useState(false);
+  const [followingListMode, setFollowingListMode] = useState(false);
 
+  const [loading, setLoading] = useState(false);
   const fetchProfileData = async () => {
     setLoading(true);
     const response = await apiCall('api/v1/users/show', 'GET', {});
@@ -26,6 +31,10 @@ const Profile = () => {
       setUserPosts(response.data.posts);
     }
     setLoading(false);
+  };
+
+  const handleClick = (type) => {
+    type == 'follower' ? setFollowersListMode(true) : setFollowingListMode(true)
   };
 
   useEffect(() => {
@@ -50,12 +59,16 @@ const Profile = () => {
               </div>
             </div>
             <div className="col-md-9">
-              <h1>{profileData.name}</h1>
-              <p className="text-primary fw-bold">@{profileData.username}</p>
+              <h1 className='mb-0'>{profileData.name}</h1>
+              <p className="text-primary fw-bold mb-1">@{profileData.username}</p>
               <div className="stats-counts">
                 <span className="fw-bold ms-0 m-2">{profileData.posts_count} Posts</span>
-                <span className="fw-bold m-2">{profileData.followers_count} Followers</span>
-                <span className="fw-bold m-2">{profileData.followings_count} Following</span>
+                <span className="fw-bold m-2" onClick={() => handleClick('follower')} style={{ cursor: 'pointer' }}>
+                  {profileData.followers_count} Followers
+                </span>
+                <span className="fw-bold m-2" onClick={() => handleClick('following')} style={{ cursor: 'pointer' }}>
+                  {profileData.followings_count} Following
+                  </span>
               </div>
               <button className="btn btn-primary mt-2 mb-2" onClick={() => setEditMode(true)}>
                 Edit Profile
@@ -70,7 +83,7 @@ const Profile = () => {
                   <img src={post.media_url} alt={post.title} className="img-fluid post-image-square" />
                   <div className="overlay">
                     <span><i className="bi bi-heart"></i> {post.likes_count}</span>
-                    <span><i className='bi bi-chat'></i> {post.comments_count}</span>
+                    <span><i className="bi bi-chat"></i> {post.comments_count}</span>
                   </div>
                 </div>
               </div>
@@ -83,6 +96,14 @@ const Profile = () => {
 
       {editMode && (
         <EditProfile user={profileData} funSetEditMode={setEditMode} funFetchProfileData={fetchProfileData} />
+      )}
+
+      {followersListMode && (
+        <FollowersList onClose={() => setFollowersListMode(false)} />
+      )}
+
+      {followingListMode && (
+        <FollowingList onClose={() => setFollowingListMode(false)} />
       )}
     </div>
   );

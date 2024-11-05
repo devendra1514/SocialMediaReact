@@ -1,3 +1,4 @@
+//EditProfile.js
 import React, { useState, useEffect } from 'react';
 import apiCall from './apiService';
 import 'bootstrap/dist/css/bootstrap.min.css';

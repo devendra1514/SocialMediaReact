@@ -8,7 +8,6 @@ import Profile from './components/Profile'
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
 import NotFound from './components/NotFound';
-import EditProfile from './components/EditProfile';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SocialNavBar from './components/SocialNavBar';
 import Posts from "./components/Posts";
@@ -18,7 +17,6 @@ function App() {
   return (
     <Router>
       <Routes>
-        
         <Route path="/login_with_otp" 
           element={
             <PublicRoute>
