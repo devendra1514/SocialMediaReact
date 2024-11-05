@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import apiCall from './apiService';
 import { useNavigate } from 'react-router-dom';
 
-const PostCard = ({ post }) => {
+const PostCard = ({ post, childPost = true }) => {
   const [isLiked, setIsLiked] = useState(post.liked);
   const [likesCount, setLikesCount] = useState(post.likes_count);
   const navigate = useNavigate();
@@ -86,12 +86,12 @@ const PostCard = ({ post }) => {
             </div>
           </div>
 
-          <div className="d-flex align-items-center">
-            <i className="bi bi-chat" style={{ fontSize: '1.8rem' }} onClick={handleCommentsClick}></i>
+          { childPost ? <div className="d-flex align-items-center">
+            <i className="bi bi-chat" style={{ fontSize: '1.8rem', cursor: 'pointer' }} onClick={handleCommentsClick}></i>
             <div className="ms-2">
               <strong>{post.comments_count}</strong>
             </div>
-          </div>
+          </div> : null }
         </div>
       </div>
     </div>

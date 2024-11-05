@@ -4,9 +4,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaUserCircle } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { useContext } from 'react';
+import UserContext from './UserContext';
 
 const SocialNavBar = () => {
   const navigate = useNavigate();
+  const current_user = useContext(UserContext);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -44,7 +47,7 @@ const SocialNavBar = () => {
           <ul className="navbar-nav ms-auto d-flex align-items-center">
             <li className="nav-item me-3">
               <Link className="nav-link" to="/profile">
-                <FaUserCircle size={28} className="text-white" />
+              { current_user ? <img src={current_user.thumb_url} alt={`${current_user.name}'s avatar`} style={{borderRadius: '100px', width: '40px' }}/> : <FaUserCircle size={28} className="text-black" /> }
               </Link>
             </li>
 

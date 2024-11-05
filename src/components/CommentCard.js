@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import apiCall from './apiService';
+import { useNavigate } from 'react-router-dom';
 
-const CommentCard = ({ comment }) => {
+const CommentCard = ({ comment, childComment = true }) => {
   const [isLiked, setIsLiked] = useState(comment.liked);
   const [likesCount, setLikesCount] = useState(comment.likes_count);
+  const navigate = useNavigate();
 
   const handleLike = async (e) => {
     e.preventDefault();
@@ -27,6 +29,10 @@ const CommentCard = ({ comment }) => {
     } catch (error) {
       console.error("Error while liking the comment:", error);
     }
+  };
+
+  const handleCommentsClick = () => {
+    navigate(`/child_comments/Comment/${comment.comment_id}`);
   };
 
   return (
@@ -70,12 +76,12 @@ const CommentCard = ({ comment }) => {
             </div>
           </div>
 
-          <div className="d-flex align-items-center">
-            <i className="bi bi-chat" style={{ fontSize: '1.8rem' }}></i>
+          { childComment ? (comment.level === 1 ? null : <div className="d-flex align-items-center">
+            <i className="bi bi-chat" style={{ fontSize: '1.8rem', cursor: 'pointer' }} onClick={handleCommentsClick}></i>
             <div className="ms-2">
               <strong>{comment.comments_count}</strong>
             </div>
-          </div>
+          </div>) : null }
         </div>
       </div>
     </div>
