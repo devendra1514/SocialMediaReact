@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import apiCall from "./apiService";
 import PostCard from "./PostCard";
+import { useNavigate } from "react-router-dom";
 
 function Posts() {
   const [page, setPage] = useState(1);
   const [posts, setPosts] = useState([]);
+  const navigate = useNavigate()
 
   const getPosts = async () => {
     const response = await apiCall(`api/v1/posts?page=${page}`);
@@ -19,6 +21,12 @@ function Posts() {
 
   return (
     <div className="container mt-5">
+      <button
+        className="btn btn-primary mt-3"
+        onClick={() => navigate('/posts/new') }
+      >
+        Upload Post
+      </button>
       {posts.map((postData) => (
         <PostCard key={postData.post_id} post={postData} />
       ))}
