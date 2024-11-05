@@ -47,3 +47,13 @@
 .post-item-square:hover .overlay {
   opacity: 1;
 }
+
+.video-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px; /* Adjust size as needed */
+  color: white; /* Change color if necessary */
+  opacity: 0.8; /* Optional for slight transparency */
+}

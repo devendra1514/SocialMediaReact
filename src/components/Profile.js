@@ -6,6 +6,7 @@ import '../css/Profile.css';
 import EditProfile from './EditProfile';
 import FollowersList from './FollowersList';
 import FollowingList from './FollowingList'
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
   const [profileData, setProfileData] = useState(null);
@@ -13,6 +14,7 @@ const Profile = () => {
   const [editMode, setEditMode] = useState(false);
   const [followersListMode, setFollowersListMode] = useState(false);
   const [followingListMode, setFollowingListMode] = useState(false);
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const fetchProfileData = async () => {
@@ -80,10 +82,30 @@ const Profile = () => {
             {userPosts.map((post) => (
               <div key={post.post_id} className="col-4">
                 <div className="post-item-square">
-                  <img src={post.media_url} alt={post.title} className="img-fluid post-image-square" />
-                  <div className="overlay">
+                  {
+                    post.media_url ? (
+                      <div className="post-image-container">
+                        <img
+                          src={post.thumb_url}
+                          alt={post.title}
+                          className="img-fluid post-image-square"
+                        />
+                        {
+                          post.content_type.includes('video')
+                          ?
+                            <div className="video-icon">
+                              <i className="bi bi-play-circle-fill"></i>
+                            </div>
+                          :
+                            null
+                        }
+                      </div>
+                    ) : <div style={{textAlign: "center"}}>{post.title}</div>
+                  }
+                  <div className="overlay" onClick={ () => navigate(`/comments/Post/${post.post_id}`) }>
                     <span><i className="bi bi-heart"></i> {post.likes_count}</span>
                     <span><i className="bi bi-chat"></i> {post.comments_count}</span>
+                    {/* { post.content_type.inclueds('video') ? <span><i className="bi bi-chat"></i> {post.comments_count} : null } */}
                   </div>
                 </div>
               </div>
