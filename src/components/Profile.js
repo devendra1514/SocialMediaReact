@@ -45,14 +45,14 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className="container w-75 my-5 p-4 bg-light rounded shadow-sm">
+    <div className="container w-75 my-3  p-4 rounded shadow-sm">
       {loading ? (
         <p>Loading...</p>
       ) : profileData ? (
         <>
           <div className="row align-items-center mb-4">
             <div className="col-md-3 d-flex justify-content-center">
-              <div className="rounded-circle border border-info p-1 bg-white d-flex justify-content-center align-items-center" style={{ width: '150px', height: '150px' }}>
+              <div className="rounded-circle border border-info p-1 bg-white d-flex justify-content-center align-items-center" style={{ width: '150px'}}>
                 {profileData.thumb_url ? (
                   <img src={profileData.thumb_url} alt={`${profileData.name}'s avatar`} className="profile-pic rounded-circle" />
                 ) : (

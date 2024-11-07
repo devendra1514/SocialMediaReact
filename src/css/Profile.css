@@ -1,4 +1,10 @@
 /* Profile.css */
+
+.container {
+  background-color: rgb(235, 235, 235);
+  padding: 1rem;
+}
+
 .border-info {
   border-radius: 5px;
 }
@@ -15,7 +21,7 @@
 }
 
 .modal-content {
-  margin-top: 20%;
+  margin-top: 30%;
 }
 
 .post-image-square {
@@ -56,4 +62,67 @@
   font-size: 48px; /* Adjust size as needed */
   color: white; /* Change color if necessary */
   opacity: 0.8; /* Optional for slight transparency */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .container {
+    width: 100% !important;
+    padding: 1rem;
+  }
+
+  .profile-pic {
+    width: 140px;
+    height: 140px;
+  }
+
+  .stats-counts span {
+    margin: 0.5rem 0;
+  }
+
+  .post-item-square {
+    width: 100%;
+    padding-bottom: 100%;
+  }
+
+  .col-4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .btn {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 15px
+  }
+}
+
+@media (max-width: 576px) {
+  .profile-pic {
+    width: 140px;
+    height: 140px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+  .stats-counts span {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .profile-pic {
+    width: 140px;
+    height: 140px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .stats-counts span {
+    font-size: .8rem;
+  }
 }

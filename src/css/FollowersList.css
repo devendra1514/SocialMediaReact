@@ -71,3 +71,9 @@
   margin-right: 10px;
   color: rgb(87, 87, 87);
 }
+
+@media (max-width: 576px) {
+  .followers-content {
+    width: 20rem;
+  }
+}
