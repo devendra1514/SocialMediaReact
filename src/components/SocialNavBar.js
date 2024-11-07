@@ -54,6 +54,12 @@ const SocialNavBar = () => {
             </li>
 
             <li className="nav-item">
+              <Link className="nav-link" to="/moments" onClick={closeNav}>
+                Moments
+              </Link>
+            </li>
+
+            <li className="nav-item">
               <Link className="nav-link" to="/about" onClick={closeNav}>
                 About
               </Link>
