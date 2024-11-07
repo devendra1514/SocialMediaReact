@@ -18,20 +18,17 @@ import Users from './components/Users';
 import About from './components/About';
 import UserContext from './components/UserContext'
 import apiCall from './components/apiService';
+import Moments from './components/Moments'
 
 
 function App() {
   const [current_user, setCurrentUser] = useState(null);
   const fetchCurrentUser = async () => {
     const token = localStorage.getItem('token');
-    if (token) {
-      try {
-        const response = await apiCall('api/v1/users/show');
-        if (response.status === 200) {
-          setCurrentUser(response.data);
-        }
-      } catch (error) {
-        console.error('Failed to fetch user data:', error);
+    if (token || !current_user) {
+      const response = await apiCall('api/v1/users/show');
+      if (response.status === 200) {
+        setCurrentUser(response.data);
       }
     }
   }
@@ -76,7 +73,7 @@ function App() {
                   <Dashboard />
                 </PrivateRoute>
             }
-            />
+          />
 
           <Route path="/"
             element={
@@ -85,7 +82,7 @@ function App() {
                 <Dashboard />
               </PrivateRoute>
             }
-            />
+          />
 
           <Route path="/profile"
             element={
@@ -94,7 +91,7 @@ function App() {
                 <Profile />
               </PrivateRoute>
             }
-            />
+          />
 
           <Route path="/posts"
             element={
@@ -103,7 +100,7 @@ function App() {
                 <Posts />
               </PrivateRoute>
             }
-            />
+          />
 
           <Route path="/comments/Post/:resource_id"
             element={
@@ -121,7 +118,7 @@ function App() {
                 <ChildComments />
               </PrivateRoute>
             }
-            />
+          />
 
           <Route path="/posts/new"
             element={
@@ -130,7 +127,7 @@ function App() {
                 <PostNew />
               </PrivateRoute>
             }
-            />
+          />
 
           <Route path="/users"
             element={
@@ -139,7 +136,7 @@ function App() {
                 <Users />
               </PrivateRoute>
             }
-            />
+          />
 
           <Route path="/about"
             element={
@@ -148,7 +145,16 @@ function App() {
                 <About />
               </PrivateRoute>
             }
-            />
+          />
+
+          <Route path="/moments"
+            element={
+              <PrivateRoute>
+                <SocialNavBar />
+                <Moments />
+              </PrivateRoute>
+            }
+          />
 
           <Route path="*" element={< NotFound />} />
         </Routes>

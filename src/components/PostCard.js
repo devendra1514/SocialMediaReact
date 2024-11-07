@@ -16,15 +16,17 @@ const PostCard = ({ post, childPost = true }) => {
       resource_id: post.post_id,
     };
 
-    try {
-      const response = await apiCall('api/v1/likes', 'POST', likeData);
+    // Change in frontend
+    setIsLiked(post.liked === true ? false : true);
+    post.liked = post.liked === true ? false : true
+    setLikesCount((prevCount) => (isLiked ? prevCount - 1 : prevCount + 1));
 
-      const updatedLikedStatus = response.data.message === 'Liked';
-      setIsLiked(updatedLikedStatus);
-      setLikesCount((prevCount) => (updatedLikedStatus ? prevCount + 1 : prevCount - 1));
-    } catch (error) {
-      console.error("Error while liking the post:", error);
-    }
+    const response = await apiCall('api/v1/likes', 'POST', likeData);
+    // Change from backend
+    const updatedLikedStatus = response.data.message === 'Liked';
+    setIsLiked(updatedLikedStatus);
+    post.liked = updatedLikedStatus;
+    setLikesCount(response.data.resource.likes_count);
   };
 
   const handleCommentsClick = () => {

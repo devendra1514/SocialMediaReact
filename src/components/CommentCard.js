@@ -16,19 +16,18 @@ const CommentCard = ({ comment, childComment = true }) => {
       resource_id: comment.comment_id,
     };
 
-    try {
-      const response = await apiCall('api/v1/likes', 'POST', likeData);
+    // Change in frontend
+    setIsLiked(comment.liked === true ? false : true);
+    comment.liked = comment.liked === true ? false : true
+    setLikesCount((prevCount) => (isLiked ? prevCount - 1 : prevCount + 1));
 
-      if (response.status === 200) {
-        const updatedLikedStatus = response.data.message === 'Liked';
-        setIsLiked(updatedLikedStatus);
-        setLikesCount((prevCount) => (updatedLikedStatus ? prevCount + 1 : prevCount - 1));
-      } else if (response.status === 400) {
-        console.log("Error liking comment.");
-      }
-    } catch (error) {
-      console.error("Error while liking the comment:", error);
-    }
+    const response = await apiCall('api/v1/likes', 'POST', likeData);
+
+    // Change from backend
+    const updatedLikedStatus = response.data.message === 'Liked';
+    setIsLiked(updatedLikedStatus);
+    comment.liked = updatedLikedStatus;
+    setLikesCount(response.data.comment.likes_count);
   };
 
   const handleCommentsClick = () => {

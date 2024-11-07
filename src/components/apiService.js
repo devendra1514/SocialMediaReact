@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://close-guiding-mackerel.ngrok-free.app/';
+const API_URL = 'http://localhost:3000/';
 
 const handleResponse = (response) => {
   if (response.status === 400) {
@@ -55,8 +55,7 @@ const apiCall = async (endpoint, method = 'GET', data = null, multipart = false)
     if (error.response) {
       return handleResponse(error.response);
     } else {
-      console.error('Error:', error.message);
-      alert('An unexpected error occurred.');
+      alert('Problem with Backend: ', error.message);
       throw error;
     }
   }
