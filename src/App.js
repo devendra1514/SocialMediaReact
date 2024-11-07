@@ -25,7 +25,7 @@ function App() {
   const [current_user, setCurrentUser] = useState(null);
   const fetchCurrentUser = async () => {
     const token = localStorage.getItem('token');
-    if (token || !current_user) {
+    if (token) {
       const response = await apiCall('api/v1/users/show');
       if (response.status === 200) {
         setCurrentUser(response.data);
