@@ -27,7 +27,7 @@ const CommentCard = ({ comment, childComment = true }) => {
     const updatedLikedStatus = response.data.message === 'Liked';
     setIsLiked(updatedLikedStatus);
     comment.liked = updatedLikedStatus;
-    setLikesCount(response.data.comment.likes_count);
+    setLikesCount(response.data.resource.likes_count);
   };
 
   const handleCommentsClick = () => {

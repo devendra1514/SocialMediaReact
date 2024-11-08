@@ -19,6 +19,7 @@ import About from './components/About';
 import UserContext from './components/UserContext'
 import apiCall from './components/apiService';
 import Moments from './components/Moments'
+import MomentNew from './components/MomentNew';
 
 
 function App() {
@@ -152,6 +153,15 @@ function App() {
               <PrivateRoute>
                 <SocialNavBar />
                 <Moments />
+              </PrivateRoute>
+            }
+          />
+
+          <Route path='/moments/new'
+            element={
+              <PrivateRoute>
+                <SocialNavBar/>
+                <MomentNew/>
               </PrivateRoute>
             }
           />
