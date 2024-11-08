@@ -3,6 +3,7 @@ import apiCall from './apiService';
 import 'swiper/css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { useNavigate } from 'react-router-dom';
 
 function Moments() {
   const [page, setPage] = useState(1);
@@ -11,6 +12,7 @@ function Moments() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(false);
   const swiperRef = useRef(null);
+  const navigate = useNavigate();
 
   const getPosts = async () => {
     setLoading(true);
@@ -157,6 +159,7 @@ function Moments() {
       className="container-fluid mt-3"
       style={{ height: '88vh', overflow: 'hidden' }} // Adjust 60px to your navbar's height
     >
+      <button onClick={() => { navigate('/moments/new') }}>Upload Moment</button>
       <Swiper
         spaceBetween={10}
         slidesPerView={1}

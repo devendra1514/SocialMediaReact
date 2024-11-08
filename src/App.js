@@ -19,13 +19,14 @@ import About from './components/About';
 import UserContext from './components/UserContext'
 import apiCall from './components/apiService';
 import Moments from './components/Moments'
+import MomentNew from './components/MomentNew';
 
 
 function App() {
   const [current_user, setCurrentUser] = useState(null);
   const fetchCurrentUser = async () => {
     const token = localStorage.getItem('token');
-    if (token || !current_user) {
+    if (token) {
       const response = await apiCall('api/v1/users/show');
       if (response.status === 200) {
         setCurrentUser(response.data);
@@ -152,6 +153,15 @@ function App() {
               <PrivateRoute>
                 <SocialNavBar />
                 <Moments />
+              </PrivateRoute>
+            }
+          />
+
+          <Route path='/moments/new'
+            element={
+              <PrivateRoute>
+                <SocialNavBar/>
+                <MomentNew/>
               </PrivateRoute>
             }
           />
