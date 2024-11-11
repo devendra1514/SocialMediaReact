@@ -82,14 +82,18 @@ function Moments() {
         resource_id: moment.moment_id,
       };
 
-      try {
-        const response = await apiCall('api/v1/likes', 'POST', likeData);
+      // Change in frontend
+      setIsLiked(moment.liked === true ? false : true);
+      moment.liked = moment.liked === true ? false : true
+      setLikesCount((prevCount) => (isLiked ? prevCount - 1 : prevCount + 1));
 
+      const response = await apiCall('api/v1/likes', 'POST', likeData);
+      // Change from backend
+      if(response.status === 200){
         const updatedLikedStatus = response.data.message === 'Liked';
         setIsLiked(updatedLikedStatus);
-        setLikesCount((prevCount) => (updatedLikedStatus ? prevCount + 1 : prevCount - 1));
-      } catch (error) {
-        console.error('Error while liking the post:', error);
+        moment.liked = updatedLikedStatus;
+        setLikesCount(response.data.resource.likes_count);
       }
     };
 
@@ -170,7 +174,7 @@ function Moments() {
         navigation={true}
         onSlideChange={handleSlideChange}
         className="moment-swiper"
-        style={{ height: '100%' }}
+        style={{ height: '98%' }}
         ref={swiperRef}
       >
         {moments.map((moment, index) => (
