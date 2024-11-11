@@ -20,6 +20,7 @@ import UserContext from './components/UserContext'
 import apiCall from './components/apiService';
 import Moments from './components/Moments'
 import MomentNew from './components/MomentNew';
+import PublicProfile from './components/PublicProfile';
 
 
 function App() {
@@ -162,6 +163,15 @@ function App() {
               <PrivateRoute>
                 <SocialNavBar/>
                 <MomentNew/>
+              </PrivateRoute>
+            }
+          />
+
+          <Route path="/public_profile/:user_id"
+            element={
+              <PrivateRoute>
+                <SocialNavBar />
+                <PublicProfile />
               </PrivateRoute>
             }
           />

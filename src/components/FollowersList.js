@@ -1,13 +1,13 @@
   // FollowersList.js
-  import React, { useEffect, useState } from 'react';
+  import React, { useEffect, useId, useState } from 'react';
   import apiCall from './apiService';
   import '../css/FollowersList.css';
 
-  const FollowersList = ({ onClose }) => {
+  const FollowersList = ({ onClose, userId }) => {
     const [followers, setFollowers] = useState([]);
     const [loading, setLoading] = useState(true);
     const fetchFollowers = async () => {
-      const response = await apiCall('/api/v1/profile/my_followers', 'GET', {});
+      const response = await apiCall(userId ? `/api/v1/public_profiles/${userId}/followers` : '/api/v1/profile/my_followers', 'GET', {});
       if (response.status === 200) {
         setFollowers(response.data.users);
       }

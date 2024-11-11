@@ -3,12 +3,12 @@ import React, { useEffect, useState } from 'react';
 import apiCall from './apiService';
 import '../css/FollowersList.css';
 
-const FollowingList = ({ onClose }) => {
+const FollowingList = ({ onClose, userId }) => {
   const [following, setFollowing] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchFollowing = async () => {
-    const response = await apiCall('/api/v1/profile/my_followings', 'GET', {});
+    const response = await apiCall(userId ? `/api/v1/public_profiles/${userId}/followings` : '/api/v1/profile/my_followings', 'GET', {});
     if (response.status === 200) {
       setFollowing(response.data.users);
     }

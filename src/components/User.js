@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import apiCall from './apiService';
+import UserContext from './UserContext';
 
 const UserCard = ({ user }) => {
   const [isFollowed, setIsFollowed] = useState(user.followed);
+  const current_user = useContext(UserContext);
 
   const handleFollow = async (e) => {
     e.preventDefault();
@@ -46,11 +48,11 @@ const UserCard = ({ user }) => {
 
         <div className="d-flex justify-content-start mt-3">
           <div className="d-flex align-items-center me-4">
-            {isFollowed ? (
+            { user.user_id === current_user.user_id ? null : isFollowed ? (
               <button onClick={handleFollow} style={{ fontSize: '0.8rem', color: 'red', cursor: 'pointer' }}>Unfollow</button>
             ) : (
               <button onClick={handleFollow} style={{ fontSize: '0.8rem', cursor: 'pointer' }}>Follow</button>
-            )}
+            ) }
           </div>
         </div>
       </div>
