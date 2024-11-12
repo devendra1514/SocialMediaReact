@@ -20,9 +20,9 @@ function Posts() {
   }, [page]);
 
   return (
-    <div className="container mt-5">
+    <div className="d-flex flex-column m-5 gap-3 align-items-center">
       <button
-        className="btn btn-primary mt-3"
+        className="btn btn-primary mt-3 mb-3"
         onClick={() => navigate('/posts/new') }
       >
         Upload Post

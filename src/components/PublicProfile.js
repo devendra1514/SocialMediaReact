@@ -6,6 +6,8 @@ import '../css/Profile.css';
 import FollowersList from './FollowersList';
 import FollowingList from './FollowingList'
 import { useNavigate, useParams } from 'react-router-dom';
+import { useContext } from 'react';
+import UserContext from './UserContext';
 
 const PublicProfile = () => {
   const [profileData, setProfileData] = useState(null);
@@ -14,6 +16,8 @@ const PublicProfile = () => {
   const [followingListMode, setFollowingListMode] = useState(false);
   const navigate = useNavigate();
   const { user_id } = useParams();
+  const current_user = useContext(UserContext);
+  const [isFollowed, setIsFollowed] = useState();
 
   const [loading, setLoading] = useState(false);
   const fetchProfileData = async () => {
@@ -21,6 +25,7 @@ const PublicProfile = () => {
     const response = await apiCall(`api/v1/public_profiles/${user_id}`, 'GET', {});
     if (response.status === 200) {
       setProfileData(response.data);
+      setIsFollowed(response.data.followed)
     }
     setLoading(false);
   };
@@ -37,6 +42,15 @@ const PublicProfile = () => {
   const handleClick = (type) => {
     type == 'follower' ? setFollowersListMode(true) : setFollowingListMode(true)
   };
+
+  const handleFollow = async () => {
+    const followData = {
+      followed_id: profileData.user_id
+    };
+    const response = await apiCall('api/v1/follow', 'POST', followData);
+
+    setIsFollowed(response.data.message === 'Follow');
+  }
 
   useEffect(() => {
     fetchProfileData();
@@ -69,11 +83,13 @@ const PublicProfile = () => {
                 </span>
                 <span className="fw-bold m-2" onClick={() => handleClick('following')} style={{ cursor: 'pointer' }}>
                   {profileData.followings_count} Following
-                  </span>
+                </span>
               </div>
-              <button className="btn btn-primary mt-2 mb-2">
-                Follow
-              </button>
+              {   
+                 current_user && profileData && current_user.user_id === profileData.user_id ? null : <button className="btn btn-primary mt-2 mb-2" onClick={handleFollow}>
+                  {isFollowed ? 'Unfollow' : 'Follow'}
+                </button>
+              }
             </div>
           </div>
 
@@ -120,7 +136,7 @@ const PublicProfile = () => {
       )}
 
       {followingListMode && (
-        <FollowingList onClose={() => setFollowingListMode(false)} userId={profileData.userId} />
+        <FollowingList onClose={() => setFollowingListMode(false)} userId={profileData.user_id} />
       )}
     </div>
   );

@@ -34,14 +34,15 @@ const PostCard = ({ post, childPost = true }) => {
   };
 
   return (
-    <div className="card mb-4 shadow-sm border-1">
+    <div className="card mb-4 shadow-sm border-1" style={{ width: '38rem' }}>
       <div className="card-body">
         <div className="d-flex align-items-center mb-3">
           <img
             src={post.author.avatar_url}
             alt={post.name}
             className="rounded-circle me-3"
-            style={{ width: '50px', height: '50px' }}
+            style={{ width: '50px', height: '50px', cursor: 'pointer' }}
+            onClick={() => { navigate(`/public_profile/${post.author.user_id}`) }}
           />
           <div>
             <h6 className="mb-0">{post.author.name}</h6>
@@ -61,14 +62,14 @@ const PostCard = ({ post, childPost = true }) => {
                   src={post.media_url}
                   controls
                   className="img-fluid rounded"
-                  style={{maxWidth: '100%', height: '300px', objectFit: 'cover'}}
+                  style={{maxWidth: '100%', height: '400px', objectFit: 'cover'}}
                 />
               ) : (
                 <img
                   src={post.media_url}
                   alt={post.title}
                   className="img-fluid rounded"
-                  style={{maxWidth: '100%', height: '300px', objectFit: 'cover'}}
+                  style={{maxWidth: '100%', height: '400px', objectFit: 'cover'}}
                 />
               )
             ) : null
